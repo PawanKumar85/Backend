@@ -1,0 +1,125 @@
+⁡⁢⁣⁢Database⁡ : In MongoDB,databases hold one or more collections.
+
+⁡⁢⁣⁢Collection⁡ : MongoDB stores documents in collections.Collections are analogous to tables in relational database.
+
+⁡⁢⁣⁢Document⁡ - A document is a set of key-value pairs. The documents is a single collection do not need to have the same set of fields and the data type for a field can differ across document within a collection.
+
+⁡⁣⁣⁢​‌‍‌𝗪𝗵𝗮𝘁 𝗶𝘀 𝗠𝗼𝗻𝗴𝗼𝗗𝗕 ? ​⁡
+⁡⁢⁣⁢mongo⁡ - mongo is the command-line shell that connects to a specific instance of mongod.When you run mongo with no parameters it defaults to connecting to the localhost on port 27017
+
+⁡⁢⁣⁢mongod⁡ - mongod is the primary daemon process for the MongoDB system. It handles data requests,manages data access,and performs background management operations.
+
+⁡⁢⁣⁢mongos⁡ - For a shareded cluster,the mongos instances provide the interface between the client applications and the shareded cluster.The mongos instance routes queries and write operations to the shards. From the perspective of the application,a mongos instance behaves identically to any other MongoDB instance.
+
+⁡⁢⁣⁡⁢⁣⁢mongosh ⁡⁢⁢⁢(Recommended)⁡ ⁡- The MongoDB Shell,mongosh is a fully functional Javascript and nodejs 14.x REPL environment for interacting with MongoDB deployment.You can use the MongoDB shell to test queries and operations directly with your database.
+
+
+⁡⁣⁣⁢Validationation Rule⁡
+
+db.createCollection(
+    "teacher",
+    {
+        validator: 
+        {
+            $jsonSchema:
+            {
+                bsonType: "object",
+                required: 
+                [
+                    "name",
+                    "age",
+                    "gender"
+                ],
+                properties:
+                {
+                    name:
+                    {
+                        bsonType:"string",
+                        description:"Must be string and it's required"
+                    },
+                    age:
+                    {
+                     bsonType:"int",
+                     description:"Must be integer and it's required"
+                    },
+                    gender:
+                    {
+                        bsonType:"string",
+                        enum : [
+                            "M","F","O"
+                        ],
+                        description:"Must be M,F and O only"
+                    }
+                }
+            }
+        }
+    }
+)
+
+
+db.createCollection(
+    "student",
+    {
+        validator:
+        {
+            $jsonSchema:
+            {
+                bsonType:"object",
+                required:[
+                    "name",
+                    "class",
+                    "age",
+                    "gender",
+                    "roll"
+                ],
+                properties:
+                {
+                    name:
+                    {
+                        bsonType:"string",
+                        description:"Must be string and it's required",
+                        minLength:3,
+                        maxLength:20
+                    },
+                    class:
+                    {
+                        bsonType:"string",
+                        description:"Must be string and it's required",
+                        enum : [
+                            "I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"],
+                            description:"Must be I,XII only"
+                    },
+                    age:
+                    {
+                        bsonType:"int",
+                        description:"Must be integer, range - (5 to 20) and it's required",
+                        min:5,
+                        max:20,
+                        $expr: { $and: [{ $gte: ["$age", 5] }, { $lte: ["$age", 20] }] }
+                    },
+                    gender:
+                    {
+                        bsonType:"string",
+                        description:"Must be string and it's required",
+                        enum : ["M","F","O"],
+                        description:"Must be M,F and O only"
+                    },
+                    roll:
+                    {
+                        bsonType:"int",
+                        description:"Must be integer and it's required",
+                    }
+                }
+            }
+        }
+    }
+)
+
+
+db.teacher.insertOne(
+    {
+        "name":"Pawan Kumar",
+        "age" : 24,
+        "gender":"M"
+    }
+)
