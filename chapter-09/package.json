@@ -1,0 +1,17 @@
+{
+  "name": "chapter-08",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "scripts": {
+    "dev" : "nodemon index.mjs",
+    "start": "node index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "type": "module"
+}

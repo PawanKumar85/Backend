@@ -1,0 +1,19 @@
+The path provides utilities for working with file and directory paths. It can be accessed using:
+
+const path = require("path")  // ES2015
+import path from "path"  // ES16 (recommended)
+
+basename() - The basename() method returns the last portion of a path,similar to the unix basename command.
+Trailing directory separators are ignored.
+Syntax : basename(path[,ext]);
+Example : basename("/test/something.html",".html");
+
+
+dirname() - The dirname() method returnd the directory name of the path,similar to the unix dirname command.
+Trailing directory separators are ignored.
+Syntax : dirname(path);
+Example : dirname("/test/something.html");
+
+extname() - The extname() method returns the extensions of the path from the last occurrence of the (period) character to the end of the string in the last portion of the path. If there is no. in the last portion of the path.or if there are no. character other than the first character of the basename of path, an empty string is returned.
+Syntax : extname(path)
+Example : extname("index.html");
