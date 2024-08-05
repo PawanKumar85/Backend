@@ -76,15 +76,14 @@ app.get(/a/, (req, res) => {
 
 // Chained Route Callback
 
-app
-  .route("/student")
-  .get((req, res) => {
-    res.send("All Students");
+app.route("/student")
+  .get("/student", (req, res) => {
+    res.send("All Student");
   })
-  .post((req, res) => {
+  .post("/student", (req, res) => {
     res.send("Add New Student");
   })
-  .put((req, res) => {
+  .put("/student", (req, res) => {
     res.send("Put Method");
   });
 
